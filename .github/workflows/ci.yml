@@ -1,13 +1,10 @@
 name: CI
 
-# This workflow assumes the TravelVault project is at the repository root.
-# It currently lives under `travelvault/` in the braveheart_devteam staging
-# branch; once transplanted to BraveheartConsulting/TravelVault it runs as-is.
-
 on:
   push:
     branches: [main]
   pull_request:
+  workflow_dispatch:
 
 jobs:
   analyze-and-test:
