@@ -16,12 +16,14 @@ import '../features/trips/trip_edit_screen.dart';
 import '../features/trips/trip_stop_edit_screen.dart';
 
 /// App router. Redirects enforce the lock gate: while the vault is not
-/// [LockState.unlocked], every route collapses to `/lock`.
+/// [VaultLockState.unlocked], every route collapses to `/lock`.
 final routerProvider = Provider<GoRouter>((ref) {
   // Bridges the Riverpod lock state to go_router's Listenable-based refresh.
-  final refresh = ValueNotifier<LockState>(ref.read(lockControllerProvider));
+  final refresh = ValueNotifier<VaultLockState>(
+    ref.read(lockControllerProvider),
+  );
   ref.onDispose(refresh.dispose);
-  ref.listen<LockState>(
+  ref.listen<VaultLockState>(
     lockControllerProvider,
     (_, next) => refresh.value = next,
   );
@@ -30,7 +32,8 @@ final routerProvider = Provider<GoRouter>((ref) {
     initialLocation: '/lock',
     refreshListenable: refresh,
     redirect: (context, state) {
-      final unlocked = ref.read(lockControllerProvider) == LockState.unlocked;
+      final unlocked =
+          ref.read(lockControllerProvider) == VaultLockState.unlocked;
       final atLock = state.matchedLocation == '/lock';
 
       if (!unlocked && !atLock) return '/lock';

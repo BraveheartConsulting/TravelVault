@@ -36,8 +36,8 @@ void main() {
   });
 
   test('reports the current schema version', () async {
-    final version = await testDb.db.getVersion();
-    expect(version, kSchemaVersion);
+    final result = await testDb.db.rawQuery('PRAGMA user_version');
+    expect(result.first.values.first, kSchemaVersion);
   });
 
   test('enforces foreign keys — orphan documents are rejected', () async {

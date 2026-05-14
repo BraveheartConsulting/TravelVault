@@ -28,7 +28,7 @@ void main() {
     title: 'Doc $id',
     expiryDate: expiryDate,
     fields: const {'mrz': 'P<UTODOE'},
-    imagePaths: const ['vault/$id.enc'],
+    imagePaths: ['vault/$id.enc'],
     createdAt: epoch,
     updatedAt: epoch,
   );

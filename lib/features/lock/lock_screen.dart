@@ -11,7 +11,7 @@ class LockScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final lockState = ref.watch(lockControllerProvider);
-    final isUnlocking = lockState == LockState.unlocking;
+    final isUnlocking = lockState == VaultLockState.unlocking;
     final theme = Theme.of(context);
 
     return Scaffold(
