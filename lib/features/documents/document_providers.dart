@@ -19,8 +19,8 @@ final documentServiceProvider = Provider<DocumentService>((ref) {
 /// [DocumentListController.reload] for screens to call after a mutation.
 final documentListProvider =
     AsyncNotifierProvider<DocumentListController, List<Document>>(
-  DocumentListController.new,
-);
+      DocumentListController.new,
+    );
 
 class DocumentListController extends AsyncNotifier<List<Document>> {
   @override
@@ -42,7 +42,9 @@ class DocumentListController extends AsyncNotifier<List<Document>> {
 }
 
 /// Decrypts a stored image on demand. Keyed by the image's storage id.
-final decryptedImageProvider =
-    FutureProvider.family<Uint8List, String>((ref, imageId) {
+final decryptedImageProvider = FutureProvider.family<Uint8List, String>((
+  ref,
+  imageId,
+) {
   return ref.watch(encryptedImageStoreProvider).load(imageId);
 });

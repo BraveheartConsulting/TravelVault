@@ -93,11 +93,10 @@ class TripRepository {
   // --- Trip ↔ document links ----------------------------------------------
 
   Future<void> linkDocument(String tripId, String documentId) async {
-    await _db.insert(
-      _tripDocuments,
-      {'trip_id': tripId, 'document_id': documentId},
-      conflictAlgorithm: ConflictAlgorithm.ignore,
-    );
+    await _db.insert(_tripDocuments, {
+      'trip_id': tripId,
+      'document_id': documentId,
+    }, conflictAlgorithm: ConflictAlgorithm.ignore);
   }
 
   Future<void> unlinkDocument(String tripId, String documentId) async {

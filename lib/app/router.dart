@@ -30,8 +30,7 @@ final routerProvider = Provider<GoRouter>((ref) {
     initialLocation: '/lock',
     refreshListenable: refresh,
     redirect: (context, state) {
-      final unlocked =
-          ref.read(lockControllerProvider) == LockState.unlocked;
+      final unlocked = ref.read(lockControllerProvider) == LockState.unlocked;
       final atLock = state.matchedLocation == '/lock';
 
       if (!unlocked && !atLock) return '/lock';
@@ -39,18 +38,9 @@ final routerProvider = Provider<GoRouter>((ref) {
       return null;
     },
     routes: [
-      GoRoute(
-        path: '/lock',
-        builder: (_, __) => const LockScreen(),
-      ),
-      GoRoute(
-        path: '/',
-        builder: (_, __) => const HomeScreen(),
-      ),
-      GoRoute(
-        path: '/settings',
-        builder: (_, __) => const SettingsScreen(),
-      ),
+      GoRoute(path: '/lock', builder: (_, __) => const LockScreen()),
+      GoRoute(path: '/', builder: (_, __) => const HomeScreen()),
+      GoRoute(path: '/settings', builder: (_, __) => const SettingsScreen()),
       // `/documents/new` is listed before `/documents/:id` so it isn't
       // captured as an id.
       GoRoute(
@@ -64,20 +54,15 @@ final routerProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: '/documents/:id',
-        builder: (_, state) => DocumentDetailScreen(
-          documentId: state.pathParameters['id']!,
-        ),
+        builder: (_, state) =>
+            DocumentDetailScreen(documentId: state.pathParameters['id']!),
       ),
       // `/trips/new` is listed before `/trips/:id` so it isn't captured as
       // an id.
-      GoRoute(
-        path: '/trips/new',
-        builder: (_, __) => const TripEditScreen(),
-      ),
+      GoRoute(path: '/trips/new', builder: (_, __) => const TripEditScreen()),
       GoRoute(
         path: '/trips/:id/edit',
-        builder: (_, state) =>
-            TripEditScreen(existing: state.extra as Trip?),
+        builder: (_, state) => TripEditScreen(existing: state.extra as Trip?),
       ),
       GoRoute(
         path: '/trips/:id/stops/new',
@@ -93,9 +78,8 @@ final routerProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: '/trips/:id',
-        builder: (_, state) => TripDetailScreen(
-          tripId: state.pathParameters['id']!,
-        ),
+        builder: (_, state) =>
+            TripDetailScreen(tripId: state.pathParameters['id']!),
       ),
     ],
   );

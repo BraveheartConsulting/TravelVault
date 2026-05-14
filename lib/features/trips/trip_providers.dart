@@ -12,8 +12,7 @@ final tripServiceProvider = Provider<TripService>(
 
 /// The vault's trips. Loads once the database is open; screens call
 /// [TripListController.reload] after a mutation.
-final tripListProvider =
-    AsyncNotifierProvider<TripListController, List<Trip>>(
+final tripListProvider = AsyncNotifierProvider<TripListController, List<Trip>>(
   TripListController.new,
 );
 
@@ -32,15 +31,19 @@ class TripListController extends AsyncNotifier<List<Trip>> {
 }
 
 /// Itinerary stops for one trip. Invalidate after editing stops to refresh.
-final tripStopsProvider =
-    FutureProvider.family<List<TripStop>, String>((ref, tripId) async {
+final tripStopsProvider = FutureProvider.family<List<TripStop>, String>((
+  ref,
+  tripId,
+) async {
   await ref.watch(appDatabaseProvider.future);
   return ref.watch(tripRepositoryProvider).getStops(tripId);
 });
 
 /// Documents linked to one trip. Invalidate after linking/unlinking.
-final linkedDocumentsProvider =
-    FutureProvider.family<List<Document>, String>((ref, tripId) async {
+final linkedDocumentsProvider = FutureProvider.family<List<Document>, String>((
+  ref,
+  tripId,
+) async {
   await ref.watch(appDatabaseProvider.future);
   return ref.watch(tripRepositoryProvider).getLinkedDocuments(tripId);
 });

@@ -63,17 +63,11 @@ void main() {
     });
 
     test('counts whole days until the start', () {
-      expect(
-        daysUntilStart(_trip(start: DateTime(2026, 6, 20)), now: now),
-        5,
-      );
+      expect(daysUntilStart(_trip(start: DateTime(2026, 6, 20)), now: now), 5);
     });
 
     test('is negative once the trip has started', () {
-      expect(
-        daysUntilStart(_trip(start: DateTime(2026, 6, 10)), now: now),
-        -5,
-      );
+      expect(daysUntilStart(_trip(start: DateTime(2026, 6, 10)), now: now), -5);
     });
   });
 }

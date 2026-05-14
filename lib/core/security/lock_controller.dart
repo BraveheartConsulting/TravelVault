@@ -16,8 +16,9 @@ enum LockState {
 
 final biometricGateProvider = Provider<BiometricGate>((_) => BiometricGate());
 
-final lockControllerProvider =
-    NotifierProvider<LockController, LockState>(LockController.new);
+final lockControllerProvider = NotifierProvider<LockController, LockState>(
+  LockController.new,
+);
 
 /// Owns the app's lock state. The app starts [LockState.locked]; it must be
 /// re-locked whenever the app is backgrounded so a glance at the app switcher

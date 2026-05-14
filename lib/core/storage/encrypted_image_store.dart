@@ -16,7 +16,7 @@ import '../crypto/file_crypter.dart';
 /// changes across installs or OS updates.
 class EncryptedImageStore {
   EncryptedImageStore(this._crypter, {Directory? baseDirectory})
-      : _baseDirectoryOverride = baseDirectory;
+    : _baseDirectoryOverride = baseDirectory;
 
   final FileCrypter _crypter;
   final Directory? _baseDirectoryOverride;
@@ -41,7 +41,8 @@ class EncryptedImageStore {
     final plaintext = await File(sourcePath).readAsBytes();
     final encrypted = await _crypter.encryptBytes(plaintext);
 
-    final id = '${DateTime.now().microsecondsSinceEpoch}_'
+    final id =
+        '${DateTime.now().microsecondsSinceEpoch}_'
         '${_random.nextInt(1 << 32).toRadixString(16)}.enc';
     final dir = await _imagesDir();
     await File(p.join(dir.path, id)).writeAsBytes(encrypted, flush: true);

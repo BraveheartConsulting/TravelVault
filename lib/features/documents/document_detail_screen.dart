@@ -18,9 +18,8 @@ class DocumentDetailScreen extends ConsumerWidget {
     final listAsync = ref.watch(documentListProvider);
 
     return listAsync.when(
-      loading: () => const Scaffold(
-        body: Center(child: CircularProgressIndicator()),
-      ),
+      loading: () =>
+          const Scaffold(body: Center(child: CircularProgressIndicator())),
       error: (error, _) => Scaffold(
         appBar: AppBar(),
         body: Center(child: Text('$error')),
@@ -90,10 +89,8 @@ class _DetailView extends ConsumerWidget {
           IconButton(
             icon: const Icon(Icons.edit_outlined),
             tooltip: 'Edit',
-            onPressed: () => context.push(
-              '/documents/${document.id}/edit',
-              extra: document,
-            ),
+            onPressed: () =>
+                context.push('/documents/${document.id}/edit', extra: document),
           ),
           IconButton(
             icon: const Icon(Icons.delete_outline),
@@ -157,10 +154,7 @@ class _Field extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            label,
-            style: Theme.of(context).textTheme.labelMedium,
-          ),
+          Text(label, style: Theme.of(context).textTheme.labelMedium),
           const SizedBox(height: 2),
           Text(display, style: Theme.of(context).textTheme.bodyLarge),
         ],

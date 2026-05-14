@@ -29,8 +29,7 @@ class DocumentListView extends ConsumerWidget {
       data: (documents) {
         if (documents.isEmpty) return const _EmptyVault();
         return RefreshIndicator(
-          onRefresh: () =>
-              ref.read(documentListProvider.notifier).reload(),
+          onRefresh: () => ref.read(documentListProvider.notifier).reload(),
           child: ListView.separated(
             padding: const EdgeInsets.symmetric(vertical: 8),
             itemCount: documents.length,

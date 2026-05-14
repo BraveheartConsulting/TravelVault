@@ -77,8 +77,9 @@ class _TripEditScreenState extends ConsumerState<TripEditScreen> {
     if (!_formKey.currentState!.validate()) return;
     final dateError = _validateDates();
     if (dateError != null) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(dateError)));
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(dateError)));
       return;
     }
 
@@ -201,10 +202,7 @@ class _DateField extends StatelessWidget {
       subtitle: Text(formatDate(value)),
       trailing: value == null
           ? const Icon(Icons.calendar_today_outlined)
-          : IconButton(
-              icon: const Icon(Icons.clear),
-              onPressed: onClear,
-            ),
+          : IconButton(icon: const Icon(Icons.clear), onPressed: onClear),
       onTap: onTap,
     );
   }

@@ -68,21 +68,17 @@ class _LinkDocumentsSheet extends ConsumerWidget {
                                   documentTypeIcon(document.type),
                                 ),
                                 title: Text(document.title),
-                                subtitle:
-                                    Text(documentTypeLabel(document.type)),
-                                value: value
-                                    .any((d) => d.id == document.id),
-                                onChanged: (checked) => _toggle(
-                                  ref,
-                                  document.id,
-                                  checked ?? false,
+                                subtitle: Text(
+                                  documentTypeLabel(document.type),
                                 ),
+                                value: value.any((d) => d.id == document.id),
+                                onChanged: (checked) =>
+                                    _toggle(ref, document.id, checked ?? false),
                               ),
                           ],
                         ),
                 (AsyncError(:final error), _) ||
-                (_, AsyncError(:final error)) =>
-                  Center(child: Text('$error')),
+                (_, AsyncError(:final error)) => Center(child: Text('$error')),
                 _ => const Center(child: CircularProgressIndicator()),
               },
             ),

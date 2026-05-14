@@ -9,8 +9,7 @@ import '../../support/test_database.dart';
 void main() {
   test('round-trips bytes through encryption', () async {
     final crypter = FileCrypter(inMemoryKeyManager());
-    final plaintext =
-        Uint8List.fromList(List.generate(2048, (i) => i % 256));
+    final plaintext = Uint8List.fromList(List.generate(2048, (i) => i % 256));
 
     final encrypted = await crypter.encryptBytes(plaintext);
     expect(encrypted, isNot(equals(plaintext)));
@@ -31,8 +30,9 @@ void main() {
 
   test('rejects tampered ciphertext', () async {
     final crypter = FileCrypter(inMemoryKeyManager());
-    final encrypted =
-        await crypter.encryptBytes(Uint8List.fromList([1, 2, 3, 4, 5]));
+    final encrypted = await crypter.encryptBytes(
+      Uint8List.fromList([1, 2, 3, 4, 5]),
+    );
 
     // Flip a bit in the authentication tag.
     encrypted[encrypted.length - 1] ^= 0xFF;
@@ -44,8 +44,9 @@ void main() {
   });
 
   test('a different key cannot decrypt the payload', () async {
-    final encrypted = await FileCrypter(inMemoryKeyManager())
-        .encryptBytes(Uint8List.fromList([9, 9, 9]));
+    final encrypted = await FileCrypter(
+      inMemoryKeyManager(),
+    ).encryptBytes(Uint8List.fromList([9, 9, 9]));
 
     // A fresh key manager provisions an unrelated key.
     expect(

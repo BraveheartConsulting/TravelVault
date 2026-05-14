@@ -11,13 +11,14 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 /// not to the database file, not to logs, not to code.
 class EncryptionKeyManager {
   EncryptionKeyManager({FlutterSecureStorage? secureStorage})
-      : _secureStorage = secureStorage ??
-            const FlutterSecureStorage(
-              aOptions: AndroidOptions(encryptedSharedPreferences: true),
-              iOptions: IOSOptions(
-                accessibility: KeychainAccessibility.first_unlock_this_device,
-              ),
-            );
+    : _secureStorage =
+          secureStorage ??
+          const FlutterSecureStorage(
+            aOptions: AndroidOptions(encryptedSharedPreferences: true),
+            iOptions: IOSOptions(
+              accessibility: KeychainAccessibility.first_unlock_this_device,
+            ),
+          );
 
   static const String _keyStorageId = 'travelvault.db.encryption_key';
 

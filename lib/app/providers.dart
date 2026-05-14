@@ -10,8 +10,9 @@ import '../data/repositories/document_repository.dart';
 import '../data/repositories/profile_repository.dart';
 import '../data/repositories/trip_repository.dart';
 
-final encryptionKeyManagerProvider =
-    Provider<EncryptionKeyManager>((_) => EncryptionKeyManager());
+final encryptionKeyManagerProvider = Provider<EncryptionKeyManager>(
+  (_) => EncryptionKeyManager(),
+);
 
 /// Opens the encrypted database once and keeps it alive for the app's lifetime.
 final appDatabaseProvider = FutureProvider<AppDatabase>((ref) async {
@@ -51,8 +52,9 @@ final encryptedImageStoreProvider = Provider<EncryptedImageStore>(
 
 // --- Expiry alerts --------------------------------------------------------
 
-final expiryNotifierProvider =
-    Provider<ExpiryNotifier>((_) => ExpiryNotifier());
+final expiryNotifierProvider = Provider<ExpiryNotifier>(
+  (_) => ExpiryNotifier(),
+);
 
 // --- Startup --------------------------------------------------------------
 

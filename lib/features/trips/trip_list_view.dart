@@ -34,8 +34,7 @@ class TripListView extends ConsumerWidget {
             padding: const EdgeInsets.symmetric(vertical: 8),
             itemCount: trips.length,
             separatorBuilder: (_, __) => const Divider(height: 1),
-            itemBuilder: (context, index) =>
-                _TripTile(trip: trips[index]),
+            itemBuilder: (context, index) => _TripTile(trip: trips[index]),
           ),
         );
       },

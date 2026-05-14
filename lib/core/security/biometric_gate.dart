@@ -8,7 +8,7 @@ import 'package:local_auth/local_auth.dart';
 /// vault is still gated on devices without enrolled biometrics.
 class BiometricGate {
   BiometricGate({LocalAuthentication? localAuth})
-      : _localAuth = localAuth ?? LocalAuthentication();
+    : _localAuth = localAuth ?? LocalAuthentication();
 
   final LocalAuthentication _localAuth;
 

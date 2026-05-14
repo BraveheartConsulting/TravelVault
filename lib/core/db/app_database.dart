@@ -6,14 +6,15 @@ import 'schema.dart';
 
 /// Opens a [Database] connection. Abstracted so tests can substitute an
 /// unencrypted FFI database while production uses SQLCipher.
-typedef DatabaseOpener = Future<Database> Function(
-  String path, {
-  required String password,
-  required int version,
-  required OnDatabaseConfigureFn onConfigure,
-  required OnDatabaseCreateFn onCreate,
-  required OnDatabaseVersionChangeFn onUpgrade,
-});
+typedef DatabaseOpener =
+    Future<Database> Function(
+      String path, {
+      required String password,
+      required int version,
+      required OnDatabaseConfigureFn onConfigure,
+      required OnDatabaseCreateFn onCreate,
+      required OnDatabaseVersionChangeFn onUpgrade,
+    });
 
 /// Resolves the directory the database file lives in. Abstracted so tests can
 /// point at a temp directory instead of the platform databases path.
@@ -48,10 +49,10 @@ class AppDatabase {
     DatabaseOpener opener = _sqlCipherOpener,
     DatabasesPathResolver databasesPath = getDatabasesPath,
     String databaseName = 'travelvault.db',
-  })  : _keyManager = keyManager,
-        _opener = opener,
-        _databasesPath = databasesPath,
-        _databaseName = databaseName;
+  }) : _keyManager = keyManager,
+       _opener = opener,
+       _databasesPath = databasesPath,
+       _databaseName = databaseName;
 
   final EncryptionKeyManager _keyManager;
   final DatabaseOpener _opener;

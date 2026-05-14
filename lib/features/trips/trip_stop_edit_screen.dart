@@ -7,11 +7,7 @@ import 'trip_providers.dart';
 
 /// Add or edit an itinerary stop on a trip. Pass [existing] to edit.
 class TripStopEditScreen extends ConsumerStatefulWidget {
-  const TripStopEditScreen({
-    super.key,
-    required this.tripId,
-    this.existing,
-  });
+  const TripStopEditScreen({super.key, required this.tripId, this.existing});
 
   final String tripId;
   final TripStop? existing;
@@ -19,8 +15,7 @@ class TripStopEditScreen extends ConsumerStatefulWidget {
   bool get isEditing => existing != null;
 
   @override
-  ConsumerState<TripStopEditScreen> createState() =>
-      _TripStopEditScreenState();
+  ConsumerState<TripStopEditScreen> createState() => _TripStopEditScreenState();
 }
 
 class _TripStopEditScreenState extends ConsumerState<TripStopEditScreen> {
@@ -42,8 +37,9 @@ class _TripStopEditScreenState extends ConsumerState<TripStopEditScreen> {
     final existing = widget.existing;
     _title = TextEditingController(text: existing?.title ?? '');
     _location = TextEditingController(text: existing?.location ?? '');
-    _confirmationNumber =
-        TextEditingController(text: existing?.confirmationNumber ?? '');
+    _confirmationNumber = TextEditingController(
+      text: existing?.confirmationNumber ?? '',
+    );
     _notes = TextEditingController(text: existing?.notes ?? '');
     _type = existing?.type ?? TripStopType.flight;
     _startsAt = existing?.startsAt;
@@ -199,8 +195,9 @@ class _TripStopEditScreenState extends ConsumerState<TripStopEditScreen> {
             const SizedBox(height: 12),
             TextFormField(
               controller: _confirmationNumber,
-              decoration:
-                  const InputDecoration(labelText: 'Confirmation number'),
+              decoration: const InputDecoration(
+                labelText: 'Confirmation number',
+              ),
             ),
             const SizedBox(height: 12),
             TextFormField(
@@ -237,10 +234,7 @@ class _DateTimeField extends StatelessWidget {
       subtitle: Text(formatDateTime(value)),
       trailing: value == null
           ? const Icon(Icons.schedule_outlined)
-          : IconButton(
-              icon: const Icon(Icons.clear),
-              onPressed: onClear,
-            ),
+          : IconButton(icon: const Icon(Icons.clear), onPressed: onClear),
       onTap: onTap,
     );
   }

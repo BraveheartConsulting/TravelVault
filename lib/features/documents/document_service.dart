@@ -12,9 +12,9 @@ class DocumentService {
     required DocumentRepository repository,
     required EncryptedImageStore imageStore,
     required ExpiryNotifier notifier,
-  })  : _repository = repository,
-        _imageStore = imageStore,
-        _notifier = notifier;
+  }) : _repository = repository,
+       _imageStore = imageStore,
+       _notifier = notifier;
 
   final DocumentRepository _repository;
   final EncryptedImageStore _imageStore;

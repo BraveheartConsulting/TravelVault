@@ -24,9 +24,7 @@ class SettingsScreen extends ConsumerWidget {
           const ListTile(
             leading: Icon(Icons.shield_outlined),
             title: Text('Security'),
-            subtitle: Text(
-              'Encrypted on-device · No cloud · No account',
-            ),
+            subtitle: Text('Encrypted on-device · No cloud · No account'),
           ),
           const AboutListTile(
             icon: Icon(Icons.info_outline),

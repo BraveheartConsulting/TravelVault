@@ -27,19 +27,19 @@ String formatDateRange(DateTime? start, DateTime? end) {
 }
 
 String tripStopTypeLabel(TripStopType type) => switch (type) {
-      TripStopType.flight => 'Flight',
-      TripStopType.lodging => 'Lodging',
-      TripStopType.carRental => 'Car rental',
-      TripStopType.train => 'Train',
-      TripStopType.activity => 'Activity',
-      TripStopType.note => 'Note',
-    };
+  TripStopType.flight => 'Flight',
+  TripStopType.lodging => 'Lodging',
+  TripStopType.carRental => 'Car rental',
+  TripStopType.train => 'Train',
+  TripStopType.activity => 'Activity',
+  TripStopType.note => 'Note',
+};
 
 IconData tripStopTypeIcon(TripStopType type) => switch (type) {
-      TripStopType.flight => Icons.flight_takeoff_outlined,
-      TripStopType.lodging => Icons.hotel_outlined,
-      TripStopType.carRental => Icons.directions_car_outlined,
-      TripStopType.train => Icons.train_outlined,
-      TripStopType.activity => Icons.local_activity_outlined,
-      TripStopType.note => Icons.sticky_note_2_outlined,
-    };
+  TripStopType.flight => Icons.flight_takeoff_outlined,
+  TripStopType.lodging => Icons.hotel_outlined,
+  TripStopType.carRental => Icons.directions_car_outlined,
+  TripStopType.train => Icons.train_outlined,
+  TripStopType.activity => Icons.local_activity_outlined,
+  TripStopType.note => Icons.sticky_note_2_outlined,
+};

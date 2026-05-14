@@ -61,18 +61,19 @@ void main() {
       );
 
       // A document linked to the trip.
-      final profile =
-          await ProfileRepository(testDb.db).ensureDefaultProfile();
+      final profile = await ProfileRepository(testDb.db).ensureDefaultProfile();
       final documents = DocumentRepository(testDb.db);
       final epoch = DateTime.fromMillisecondsSinceEpoch(0);
-      await documents.insert(Document(
-        id: 'doc-1',
-        profileId: profile.id,
-        type: DocumentType.passport,
-        title: 'Passport',
-        createdAt: epoch,
-        updatedAt: epoch,
-      ));
+      await documents.insert(
+        Document(
+          id: 'doc-1',
+          profileId: profile.id,
+          type: DocumentType.passport,
+          title: 'Passport',
+          createdAt: epoch,
+          updatedAt: epoch,
+        ),
+      );
       await service.linkDocument(trip.id, 'doc-1');
 
       await service.deleteTrip(trip.id);
@@ -118,8 +119,10 @@ void main() {
 
       expect(updated.type, TripStopType.train);
       expect(updated.confirmationNumber, isNull);
-      expect((await tripRepository.getStops(trip.id)).single.title,
-          'Train instead');
+      expect(
+        (await tripRepository.getStops(trip.id)).single.title,
+        'Train instead',
+      );
     });
 
     test('deleteStop removes only that stop', () async {
@@ -145,18 +148,19 @@ void main() {
   group('document links', () {
     test('linkDocument then unlinkDocument toggles the link', () async {
       final trip = await service.createTrip(name: 'Lisbon');
-      final profile =
-          await ProfileRepository(testDb.db).ensureDefaultProfile();
+      final profile = await ProfileRepository(testDb.db).ensureDefaultProfile();
       final documents = DocumentRepository(testDb.db);
       final epoch = DateTime.fromMillisecondsSinceEpoch(0);
-      await documents.insert(Document(
-        id: 'doc-1',
-        profileId: profile.id,
-        type: DocumentType.visa,
-        title: 'Visa',
-        createdAt: epoch,
-        updatedAt: epoch,
-      ));
+      await documents.insert(
+        Document(
+          id: 'doc-1',
+          profileId: profile.id,
+          type: DocumentType.visa,
+          title: 'Visa',
+          createdAt: epoch,
+          updatedAt: epoch,
+        ),
+      );
 
       await service.linkDocument(trip.id, 'doc-1');
       expect(await tripRepository.getLinkedDocuments(trip.id), hasLength(1));

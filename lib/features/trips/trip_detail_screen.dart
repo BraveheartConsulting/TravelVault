@@ -22,9 +22,8 @@ class TripDetailScreen extends ConsumerWidget {
     final tripsAsync = ref.watch(tripListProvider);
 
     return tripsAsync.when(
-      loading: () => const Scaffold(
-        body: Center(child: CircularProgressIndicator()),
-      ),
+      loading: () =>
+          const Scaffold(body: Center(child: CircularProgressIndicator())),
       error: (error, _) => Scaffold(
         appBar: AppBar(),
         body: Center(child: Text('$error')),

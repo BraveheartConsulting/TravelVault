@@ -16,9 +16,9 @@ void main() {
     store = <String, String>{};
     storage = _MockSecureStorage();
 
-    when(() => storage.read(key: any(named: 'key'))).thenAnswer(
-      (i) async => store[i.namedArguments[#key] as String],
-    );
+    when(
+      () => storage.read(key: any(named: 'key')),
+    ).thenAnswer((i) async => store[i.namedArguments[#key] as String]);
     when(
       () => storage.write(
         key: any(named: 'key'),
@@ -28,9 +28,9 @@ void main() {
       store[i.namedArguments[#key] as String] =
           i.namedArguments[#value] as String;
     });
-    when(() => storage.delete(key: any(named: 'key'))).thenAnswer(
-      (i) async => store.remove(i.namedArguments[#key] as String),
-    );
+    when(
+      () => storage.delete(key: any(named: 'key')),
+    ).thenAnswer((i) async => store.remove(i.namedArguments[#key] as String));
 
     manager = EncryptionKeyManager(secureStorage: storage);
   });
@@ -43,7 +43,12 @@ void main() {
     expect(await manager.hasKey(), isTrue);
     // base64url of 32 random bytes.
     expect(base64Url.decode(key), hasLength(32));
-    verify(() => storage.write(key: any(named: 'key'), value: key)).called(1);
+    verify(
+      () => storage.write(
+        key: any(named: 'key'),
+        value: key,
+      ),
+    ).called(1);
   });
 
   test('returns the same key on subsequent calls', () async {
@@ -52,8 +57,12 @@ void main() {
 
     expect(second, equals(first));
     // Written exactly once — the second call reads the cached value.
-    verify(() => storage.write(key: any(named: 'key'), value: any(named: 'value')))
-        .called(1);
+    verify(
+      () => storage.write(
+        key: any(named: 'key'),
+        value: any(named: 'value'),
+      ),
+    ).called(1);
   });
 
   test('generates distinct keys across independent installs', () async {

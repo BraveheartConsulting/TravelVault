@@ -51,8 +51,7 @@ void main() {
     testDb = await TestDatabase.open();
     tempDir = await Directory.systemTemp.createTemp('document_service_test');
     documents = DocumentRepository(testDb.db);
-    profileId =
-        (await ProfileRepository(testDb.db).ensureDefaultProfile()).id;
+    profileId = (await ProfileRepository(testDb.db).ensureDefaultProfile()).id;
     imageStore = EncryptedImageStore(
       FileCrypter(inMemoryKeyManager()),
       baseDirectory: tempDir,
@@ -80,22 +79,24 @@ void main() {
     return file.path;
   }
 
-  test('create encrypts images, persists the row, and schedules an alert',
-      () async {
-    final document = await service.create(
-      profileId: profileId,
-      type: DocumentType.passport,
-      title: 'My Passport',
-      expiryDate: DateTime(2030, 1, 1),
-      newImageSourcePaths: [await writeSourceImage()],
-    );
+  test(
+    'create encrypts images, persists the row, and schedules an alert',
+    () async {
+      final document = await service.create(
+        profileId: profileId,
+        type: DocumentType.passport,
+        title: 'My Passport',
+        expiryDate: DateTime(2030, 1, 1),
+        newImageSourcePaths: [await writeSourceImage()],
+      );
 
-    expect(document.imagePaths, hasLength(1));
-    // The stored image decrypts back to the original 300 bytes.
-    expect(await imageStore.load(document.imagePaths.first), hasLength(300));
-    expect(await documents.getById(document.id), isNotNull);
-    expect(notifier.scheduled, contains(document.id));
-  });
+      expect(document.imagePaths, hasLength(1));
+      // The stored image decrypts back to the original 300 bytes.
+      expect(await imageStore.load(document.imagePaths.first), hasLength(300));
+      expect(await documents.getById(document.id), isNotNull);
+      expect(notifier.scheduled, contains(document.id));
+    },
+  );
 
   test('update clears a field, swaps an image, and reschedules', () async {
     final created = await service.create(

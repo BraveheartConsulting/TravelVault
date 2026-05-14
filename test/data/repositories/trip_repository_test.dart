@@ -32,13 +32,13 @@ void main() {
   });
 
   Trip trip(String id) => Trip(
-        id: id,
-        name: 'Trip $id',
-        destination: 'Lisbon',
-        startDate: epoch,
-        createdAt: epoch,
-        updatedAt: epoch,
-      );
+    id: id,
+    name: 'Trip $id',
+    destination: 'Lisbon',
+    startDate: epoch,
+    createdAt: epoch,
+    updatedAt: epoch,
+  );
 
   test('insert then getById round-trips a trip', () async {
     await trips.insert(trip('t1'));
@@ -51,24 +51,28 @@ void main() {
 
   test('stops are returned ordered by sort order then start time', () async {
     await trips.insert(trip('t1'));
-    await trips.insertStop(TripStop(
-      id: 's2',
-      tripId: 't1',
-      type: TripStopType.lodging,
-      title: 'Hotel',
-      sortOrder: 1,
-      createdAt: epoch,
-      updatedAt: epoch,
-    ));
-    await trips.insertStop(TripStop(
-      id: 's1',
-      tripId: 't1',
-      type: TripStopType.flight,
-      title: 'Outbound flight',
-      sortOrder: 0,
-      createdAt: epoch,
-      updatedAt: epoch,
-    ));
+    await trips.insertStop(
+      TripStop(
+        id: 's2',
+        tripId: 't1',
+        type: TripStopType.lodging,
+        title: 'Hotel',
+        sortOrder: 1,
+        createdAt: epoch,
+        updatedAt: epoch,
+      ),
+    );
+    await trips.insertStop(
+      TripStop(
+        id: 's1',
+        tripId: 't1',
+        type: TripStopType.flight,
+        title: 'Outbound flight',
+        sortOrder: 0,
+        createdAt: epoch,
+        updatedAt: epoch,
+      ),
+    );
 
     final stops = await trips.getStops('t1');
 
@@ -77,14 +81,16 @@ void main() {
 
   test('linkDocument exposes the document via getLinkedDocuments', () async {
     await trips.insert(trip('t1'));
-    await documents.insert(Document(
-      id: 'd1',
-      profileId: 'p1',
-      type: DocumentType.visa,
-      title: 'Schengen visa',
-      createdAt: epoch,
-      updatedAt: epoch,
-    ));
+    await documents.insert(
+      Document(
+        id: 'd1',
+        profileId: 'p1',
+        type: DocumentType.visa,
+        title: 'Schengen visa',
+        createdAt: epoch,
+        updatedAt: epoch,
+      ),
+    );
 
     await trips.linkDocument('t1', 'd1');
 
@@ -94,14 +100,16 @@ void main() {
 
   test('linkDocument is idempotent', () async {
     await trips.insert(trip('t1'));
-    await documents.insert(Document(
-      id: 'd1',
-      profileId: 'p1',
-      type: DocumentType.ticket,
-      title: 'Boarding pass',
-      createdAt: epoch,
-      updatedAt: epoch,
-    ));
+    await documents.insert(
+      Document(
+        id: 'd1',
+        profileId: 'p1',
+        type: DocumentType.ticket,
+        title: 'Boarding pass',
+        createdAt: epoch,
+        updatedAt: epoch,
+      ),
+    );
 
     await trips.linkDocument('t1', 'd1');
     await trips.linkDocument('t1', 'd1');
@@ -111,14 +119,16 @@ void main() {
 
   test('unlinkDocument removes the link but keeps the document', () async {
     await trips.insert(trip('t1'));
-    await documents.insert(Document(
-      id: 'd1',
-      profileId: 'p1',
-      type: DocumentType.booking,
-      title: 'Hotel booking',
-      createdAt: epoch,
-      updatedAt: epoch,
-    ));
+    await documents.insert(
+      Document(
+        id: 'd1',
+        profileId: 'p1',
+        type: DocumentType.booking,
+        title: 'Hotel booking',
+        createdAt: epoch,
+        updatedAt: epoch,
+      ),
+    );
     await trips.linkDocument('t1', 'd1');
 
     await trips.unlinkDocument('t1', 'd1');
@@ -129,22 +139,26 @@ void main() {
 
   test('deleting a trip cascades to stops and links only', () async {
     await trips.insert(trip('t1'));
-    await documents.insert(Document(
-      id: 'd1',
-      profileId: 'p1',
-      type: DocumentType.passport,
-      title: 'Passport',
-      createdAt: epoch,
-      updatedAt: epoch,
-    ));
-    await trips.insertStop(TripStop(
-      id: 's1',
-      tripId: 't1',
-      type: TripStopType.flight,
-      title: 'Flight',
-      createdAt: epoch,
-      updatedAt: epoch,
-    ));
+    await documents.insert(
+      Document(
+        id: 'd1',
+        profileId: 'p1',
+        type: DocumentType.passport,
+        title: 'Passport',
+        createdAt: epoch,
+        updatedAt: epoch,
+      ),
+    );
+    await trips.insertStop(
+      TripStop(
+        id: 's1',
+        tripId: 't1',
+        type: TripStopType.flight,
+        title: 'Flight',
+        createdAt: epoch,
+        updatedAt: epoch,
+      ),
+    );
     await trips.linkDocument('t1', 'd1');
 
     await trips.delete('t1');

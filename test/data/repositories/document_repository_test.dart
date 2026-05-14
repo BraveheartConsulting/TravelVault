@@ -13,30 +13,25 @@ void main() {
 
   final epoch = DateTime.fromMillisecondsSinceEpoch(1700000000000);
 
-  Profile profile(String id) => Profile(
-        id: id,
-        name: 'Owner $id',
-        createdAt: epoch,
-        updatedAt: epoch,
-      );
+  Profile profile(String id) =>
+      Profile(id: id, name: 'Owner $id', createdAt: epoch, updatedAt: epoch);
 
   Document document(
     String id,
     String profileId, {
     DateTime? expiryDate,
     DocumentType type = DocumentType.passport,
-  }) =>
-      Document(
-        id: id,
-        profileId: profileId,
-        type: type,
-        title: 'Doc $id',
-        expiryDate: expiryDate,
-        fields: const {'mrz': 'P<UTODOE'},
-        imagePaths: const ['vault/$id.enc'],
-        createdAt: epoch,
-        updatedAt: epoch,
-      );
+  }) => Document(
+    id: id,
+    profileId: profileId,
+    type: type,
+    title: 'Doc $id',
+    expiryDate: expiryDate,
+    fields: const {'mrz': 'P<UTODOE'},
+    imagePaths: const ['vault/$id.enc'],
+    createdAt: epoch,
+    updatedAt: epoch,
+  );
 
   setUp(() async {
     testDb = await TestDatabase.open();
@@ -77,8 +72,9 @@ void main() {
   test('update persists changes', () async {
     await documents.insert(document('d1', 'p1'));
 
-    final updated = (await documents.getById('d1'))!
-        .copyWith(title: 'Renewed Passport', updatedAt: epoch);
+    final updated = (await documents.getById(
+      'd1',
+    ))!.copyWith(title: 'Renewed Passport', updatedAt: epoch);
     await documents.update(updated);
 
     expect((await documents.getById('d1'))!.title, 'Renewed Passport');

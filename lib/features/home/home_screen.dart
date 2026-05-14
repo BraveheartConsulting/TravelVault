@@ -28,8 +28,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           IconButton(
             icon: const Icon(Icons.lock_outline),
             tooltip: 'Lock',
-            onPressed: () =>
-                ref.read(lockControllerProvider.notifier).lock(),
+            onPressed: () => ref.read(lockControllerProvider.notifier).lock(),
           ),
           IconButton(
             icon: const Icon(Icons.settings_outlined),
@@ -40,15 +39,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       ),
       body: IndexedStack(
         index: _tabIndex,
-        children: const [
-          DocumentListView(),
-          TripListView(),
-        ],
+        children: const [DocumentListView(), TripListView()],
       ),
       bottomNavigationBar: NavigationBar(
         selectedIndex: _tabIndex,
-        onDestinationSelected: (index) =>
-            setState(() => _tabIndex = index),
+        onDestinationSelected: (index) => setState(() => _tabIndex = index),
         destinations: const [
           NavigationDestination(
             icon: Icon(Icons.folder_outlined),

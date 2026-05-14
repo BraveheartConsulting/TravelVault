@@ -50,10 +50,12 @@ class _DocumentEditScreenState extends ConsumerState<DocumentEditScreen> {
     super.initState();
     final existing = widget.existing;
     _title = TextEditingController(text: existing?.title ?? '');
-    _documentNumber =
-        TextEditingController(text: existing?.documentNumber ?? '');
-    _issuingCountry =
-        TextEditingController(text: existing?.issuingCountry ?? '');
+    _documentNumber = TextEditingController(
+      text: existing?.documentNumber ?? '',
+    );
+    _issuingCountry = TextEditingController(
+      text: existing?.issuingCountry ?? '',
+    );
     _notes = TextEditingController(text: existing?.notes ?? '');
     _type = existing?.type ?? DocumentType.passport;
     _issueDate = existing?.issueDate;
@@ -103,8 +105,7 @@ class _DocumentEditScreenState extends ConsumerState<DocumentEditScreen> {
   }
 
   Future<void> _pickDate({required bool isExpiry}) async {
-    final initial =
-        (isExpiry ? _expiryDate : _issueDate) ?? DateTime.now();
+    final initial = (isExpiry ? _expiryDate : _issueDate) ?? DateTime.now();
     final picked = await showDatePicker(
       context: context,
       initialDate: initial,
@@ -209,8 +210,7 @@ class _DocumentEditScreenState extends ConsumerState<DocumentEditScreen> {
                     child: Text(documentTypeLabel(type)),
                   ),
               ],
-              onChanged: (value) =>
-                  setState(() => _type = value ?? _type),
+              onChanged: (value) => setState(() => _type = value ?? _type),
             ),
             const SizedBox(height: 12),
             TextFormField(
@@ -224,14 +224,12 @@ class _DocumentEditScreenState extends ConsumerState<DocumentEditScreen> {
             const SizedBox(height: 12),
             TextFormField(
               controller: _documentNumber,
-              decoration:
-                  const InputDecoration(labelText: 'Document number'),
+              decoration: const InputDecoration(labelText: 'Document number'),
             ),
             const SizedBox(height: 12),
             TextFormField(
               controller: _issuingCountry,
-              decoration:
-                  const InputDecoration(labelText: 'Issuing country'),
+              decoration: const InputDecoration(labelText: 'Issuing country'),
               textCapitalization: TextCapitalization.words,
             ),
             const SizedBox(height: 12),
@@ -294,10 +292,7 @@ class _DateField extends StatelessWidget {
       subtitle: Text(formatDate(value)),
       trailing: value == null
           ? const Icon(Icons.calendar_today_outlined)
-          : IconButton(
-              icon: const Icon(Icons.clear),
-              onPressed: onClear,
-            ),
+          : IconButton(icon: const Icon(Icons.clear), onPressed: onClear),
       onTap: onTap,
     );
   }

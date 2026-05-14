@@ -13,7 +13,7 @@ import 'encryption_key_manager.dart';
 /// alongside the ciphertext via [SecretBox.concatenation].
 class FileCrypter {
   FileCrypter(this._keyManager, {AesGcm? algorithm})
-      : _algorithm = algorithm ?? AesGcm.with256bits();
+    : _algorithm = algorithm ?? AesGcm.with256bits();
 
   final EncryptionKeyManager _keyManager;
   final AesGcm _algorithm;
