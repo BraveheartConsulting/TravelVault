@@ -1,0 +1,50 @@
+name: travelvault
+description: Encrypted, on-device travel document vault. No cloud, no account, no breach risk.
+publish_to: "none"
+version: 0.1.0+1
+
+environment:
+  sdk: ">=3.6.0 <4.0.0"
+  flutter: ">=3.27.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Encrypted persistence — SQLCipher-backed SQLite. Parameterized queries only.
+  sqflite_sqlcipher: ^3.1.0+1
+  path: ^1.9.0
+  path_provider: ^2.1.5
+
+  # Encryption key storage — iOS Keychain / Android Keystore. The key never
+  # leaves the device and is never written to the database file itself.
+  flutter_secure_storage: ^9.2.2
+
+  # Biometric auth gate — Face ID / Touch ID / Android biometrics.
+  local_auth: ^2.3.0
+
+  # App shell.
+  flutter_riverpod: ^2.6.1
+  go_router: ^14.6.2
+
+  # Document photos — encrypted at rest on disk with AES-GCM, never stored
+  # in plaintext. Picked from camera or library.
+  cryptography: ^2.7.0
+  image_picker: ^1.1.2
+
+  # On-device expiry alerts. Local notifications only — no push tokens,
+  # no server, no network.
+  flutter_local_notifications: ^18.0.1
+  timezone: ^0.9.4
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  # Lets the encrypted-DB and repository layers run under `flutter test` on a
+  # desktop host without a device/simulator.
+  sqflite_common_ffi: ^2.3.4
+  mocktail: ^1.0.4
+
+flutter:
+  uses-material-design: true

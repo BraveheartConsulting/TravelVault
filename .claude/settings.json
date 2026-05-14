@@ -1,0 +1,34 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/session-start.sh"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '[Security Hook] Checking for secrets in code changes...' && if echo \"$CLAUDE_TOOL_INPUT\" | grep -qiE '(api[_-]?key|secret[_-]?key|password|token|credential|private[_-]?key)\\s*[=:]\\s*[\"'\\'']((?!process\\.env|os\\.environ|\\$\\{|\\{\\{).){8,}' 2>/dev/null; then echo 'BLOCKED: Possible hardcoded secret detected. Use environment variables instead.' && exit 1; fi && echo '[Security Hook] No secrets detected. Proceeding.'"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '[Security Hook] Checking command safety...' && if echo \"$CLAUDE_TOOL_INPUT\" | grep -qiE '(rm\\s+-rf\\s+/|:(){ :|chmod\\s+777|curl.*\\|\\s*(bash|sh)|wget.*\\|\\s*(bash|sh))' 2>/dev/null; then echo 'BLOCKED: Potentially dangerous command detected. Please review.' && exit 1; fi && echo '[Security Hook] Command OK.'"
+          }
+        ]
+      }
+    ]
+  }
+}
